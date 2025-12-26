@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ConfigServicies>
+    <ServiceConfig>
+        <processClass>vn.com.payment.services.Electric</processClass>
+        <serviceName>electric</serviceName>
+    </ServiceConfig>
+    <ServiceConfig>
+        <processClass>vn.com.payment.services.Water</processClass>
+        <serviceName>water</serviceName>
+    </ServiceConfig>
+</ConfigServicies>

@@ -1,0 +1,84 @@
+app.env=prod
+# Application name
+app.application_name=gateway
+app.service_name=gateway
+app.version=1.0.0
+
+spring.application.name=coreBilling
+
+server.port = 9066
+# Dùng Jasypt Encryptor custom
+jasypt.encryptor.bean=customejasyptStringEncryptor
+
+# Connect DB
+spring.datasource.url = jdbc:oracle:thin:@localhost:1521/ORCLPDB1
+spring.datasource.username = BankinterfaceV2
+#spring.datasource.password = yP1Nn9x2J66771qE
+spring.datasource.password=ENC(XJYvvJvqvGBtIygUKh1t3RNO1KVbEaf8JbwkjwY/1s8=)
+
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+# Hibernate / JPA
+spring.jpa.database-platform=org.hibernate.dialect.Oracle10gDialect
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+# Connection Pool (HikariCP - optional tuning)
+spring.datasource.hikari.maximum-pool-size=10
+spring.datasource.hikari.connection-timeout=30000
+
+spring.kafka.bootstrap-servers=103.163.119.58:9092
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.properties.session.timeout.ms=45000
+
+# Billing Kafka Topics
+app.kafka.topic=billing_request
+app.kafka.reply-topic=gateway-rest-local-reply-topic
+app.kafka.group-id=gateway
+app.kafka.config-topic=config
+app.kafka.gateway-id=gateway1
+app.kafka.timeout=60s
+#list auto create topic
+app.list_auto_creat_topic=gateway-rest-local-reply-topic
+app.request_timeout=30
+
+app.gateway_alias=napas
+app.gateway_passphase=ENC(EgxQb7qaoMw0LPX9YKOmUaiJ/Iy+Bn2P)
+app.gateway_keystore_pass=ENC(EgxQb7qaoMw0LPX9YKOmUaiJ/Iy+Bn2P)
+app.gateway_keystore_path=mykeystore.jks
+#HSM
+#app.gateway_keystore_className=vn.com.payment.common.keystore.HSMKeyStoreManager
+#Java keystore
+app.gateway_keystore_className=vn.com.payment.common.keystore.PKCS12KeyStoreConnector
+
+#cofig log level for spring, oracle and kafka
+logging.level.org.springframework=warn
+
+#Log oracle
+logging.level.org.hibernate.SQL=off
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=off
+logging.level.org.hibernate.tool.hbm2ddl=warn
+
+logging.level.oracle=error
+logging.level.com.zaxxer.hikari=error
+logging.level.org.springframework.jdbc=warn
+logging.level.org.hibernate.engine.jdbc.connections=warn
+
+#Kafka
+logging.level.org.apache.kafka=warn
+logging.level.kafka=warn
+logging.level.org.springframework.kafka=warn
+
+# app.payment.allow-gap-between-local-date-time=30s
+app.payment.allow-gap-between-local-date-time=43200
+app.payment.allow-24h-gap-between-inquiry-and-payment=true
+
+app.number-trans-get=100
+app.min-trans-get=10
+
+app.authen.server.validate=http://14.225.0.216:9060/ach/v2/oauth2/validate
+app.authen.verify-on-gateway=false
+
+

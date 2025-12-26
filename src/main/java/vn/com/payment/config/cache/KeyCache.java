@@ -10,7 +10,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import vn.com.payment.common.keystore.RSAKey;
 
-@Component
+//@Component
 @Setter
 @Getter
 @Slf4j

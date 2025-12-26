@@ -1,0 +1,70 @@
+<maskConfig>
+    <class name="vn.com.payment.log.Card">
+        <field name="cardNumber" printable="true"/>
+        <field name="cvv" printable="false"/>
+    </class>
+    <class name="vn.com.payment.obj.message.PayloadMsg">
+        <field name="mti" printable="true"/>
+        <field name="senderReference" printable="true"/>
+        <field name="creationDateTime" printable="false"/>
+        <field name="pan" printable="false"/>
+        <field name="processingCode" printable="true"/>
+        <field name="transactionAmount" printable="true" mask = "true"/>
+        <field name="transDateTime" printable="false"/>
+        <field name="systemTrace" printable="true"/>
+        <field name="localTime" printable="false"/>
+        <field name="localDate" printable="false"/>
+        <field name="settlementDate" printable="true"/>
+        <field name="merchantCategoryCode" printable="true"/>
+        <field name="acceptingInstitutionCountryCode" printable="true"/>
+        <field name="pointOfServiceEntryModeCode" printable="true"/>
+        <field name="pointOfServiceConditionCode" printable="true"/>
+        <field name="sendingMember" printable="true"/>
+        <field name="forwardId" printable="true"/>
+        <field name="referenceNumber" printable="true"/>
+        <field name="authorizationCode" printable="false"/>
+        <field name="responseCode" printable="true"/>
+        <field name="cardAcceptorTerminalId" printable="false"/>
+        <field name="cardAcceptorIdentificationCode" printable="false"/>
+        <field name="cardAcceptorNameLocation" printable="false"/>
+        <field name="additionalDataPrivate" printable="false"/>
+        <field name="customerInfo" printable="false"/>
+        <field name="customerAddInfo" printable="false"/>
+        <field name="customerScoreInfo" printable="false"/>
+        <field name="transactionCurrencyCode" printable="false"/>
+        <field name="userDefined" printable="true"/>
+        <field name="serviceCode" printable="true"/>
+        <field name="transactionReference" printable="true"/>
+        <field name="settlementCode" printable="true"/>
+        <field name="paymentCode" printable="true"/>
+        <field name="receivingMember" printable="true"/>
+        <field name="senderAcc" printable="true"/>
+        <field name="receiverAcc" printable="true"/>
+        <field name="contentTransfers" printable="true"/>
+        <field name="accountHolderName" printable="true"/>
+        <field name="recordData" printable="true"/>
+        <field name="additionalData" printable="true"/>
+        <field name="reserved1" printable="true"/>
+        <field name="reserved2" printable="true"/>
+        <field name="reserved3" printable="true"/>
+        <field name="settlementAmount" printable="true"/>
+        <field name="cardHolderBillingAmount" printable="true"/>
+        <field name="settlementConversionRate" printable="true"/>
+        <field name="cardholderBillingConversionRate" printable="false"/>
+        <field name="settlementCurrencyCode" printable="true"/>
+        <field name="cardholderBillingCurrencyCode" printable="false"/>
+    </class>
+   <class name="vn.com.payment.obj.message.HeaderMsg">
+        <field name="messageIdentifier" printable="true"/>
+        <field name="senderReference" printable="true" mask="true"/>
+        <field name="senderDateTime" printable="false"/>
+        <field name="senderId" printable="true"/>
+        <field name="receiverId" printable="true"/>
+        <field name="subSystem" printable="true"/>
+        <field name="signature" printable="true"/>
+    </class>        
+    <class name="vn.com.payment.obj.message.BodyMsg">
+        <field name="payload" printable="true"/>
+        <field name="header" printable="true"/>
+    </class>     
+</maskConfig>

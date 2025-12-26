@@ -1,0 +1,14 @@
+<watcherconfig>
+	<WatcherEntity>
+		<className>vn.com.payment.log.MaskLoadingConfig</className>
+		<fileName>mask-config.xml</fileName>
+	</WatcherEntity>
+	<WatcherEntity>
+		<className>vn.com.payment.validate.ConfigValidateLoader</className>
+		<fileName>validate.xml</fileName>
+	</WatcherEntity>
+	<WatcherEntity>
+		<className>vn.com.payment.constants.ErrorConstants</className>
+		<fileName>error.conf</fileName>
+	</WatcherEntity>
+</watcherconfig>

@@ -1,0 +1,58 @@
+<validateConfig>
+    <class name="vn.com.payment.obj.message.HeaderMsg">
+        <field name="messageIdentifier" type="string" maxLength="20" required="true"/>
+        <field name="senderReference" type="string" maxLength="40" required="true"/>
+        <field name="senderDateTime" type="date" format="yyyy-MM-dd'T'HH:mm:ssX" required="true"/>
+        <field name="senderId" type="string" maxLength="6" required="true"/>
+        <field name="receiverId" type="string" maxLength="20" required="true"/>
+        <field name="subSystem" type="string" maxLength="3" required="true"/>
+        <field name="signature" type="string" maxLength="1000" required="true"/>
+    </class>
+    <class name="vn.com.payment.obj.message.PayloadMsg">
+        <field name="mti" type="string" maxLength="4" required="true" format="n" allowValue="0200"/>
+        <field name="senderReference" type="string" maxLength="34" required="true" format="an"/>
+        <field name="creationDateTime" type="date" format="yyyy-MM-dd'T'HH:mm:ssXXX" required="true"/>
+        <field name="pan" type="string" maxLength="19" required="true" index="2" format="an"/>
+        <field name="processingCode" type="string" maxLength="6" required="true" index="3" format="n"/>
+        <field name="transactionAmount" type="string" minLength="12" maxLength="12" required="true" index="4"
+               format="n"/>
+        <field name="transDateTime" type="date" format="MMddHHmmss" required="true" index="7"/>
+        <field name="systemTrace" type="string" minLength="6" maxLength="6" required="true" index="11" format="n"/>
+        <field name="localTime" type="date" format="HHmmss" required="true" index="12"/>
+        <field name="localDate" type="date" format="MMdd" required="true" index="13"/>
+        <field name="settlementDate" type="date" format="MMdd" index="15"/>
+        <field name="merchantCategoryCode" type="string" maxLength="4" index="18" format="n" required="true"
+               allowValue="6011;6012;7299;7399;5999"/>
+        <field name="pointOfServiceEntryModeCode" type="string" maxLength="3" required="true" index="22" format="n"
+               allowValue="000;001;002;003;004;008;009;010;011;012;013;014;018;019;020;021;022;023;024;028;029;030;031;032;033;034;038;039;040;041;042;043;044;048;049;050;051;052;053;054;058;059;070;071;072;073;074;078;079;080;081;082;083;084;088;089;810;811;812;813;814;818;819;910;911;912;913;914;918;919"/>
+        <field name="pointOfServiceConditionCode" type="string" maxLength="2" required="true" index="25" format="n"
+               allowValue="00;01;03;05;06;07;08;10;51"/>
+        <field name="sendingMember" type="string" maxLength="11" required="true" index="32" format="n"/>
+        <field name="forwardId" type="string" maxLength="11" index="33" format="n"/>
+        <field name="referenceNumber" type="string" maxLength="12" required="true" index="37" format="an"/>
+        <field name="authorizationCode" type="string" maxLength="6" index="38" format="ans"/>
+        <field name="responseCode" type="string" maxLength="2" index="39" format="an"/>
+        <field name="cardAcceptorTerminalId" type="string" maxLength="8" required="true" index="41" format="ans"/>
+        <field name="cardAcceptorIdentificationCode" type="string" maxLength="15" required="true" index="42"
+               format="ans"/>
+        <field name="cardAcceptorNameLocation" type="string" maxLength="40" required="true" index="43" format="ans"/>
+
+        <field name="additionalDataPrivate" type="stringObj" maxLength="300" index="48"
+               className="vn.com.payment.obj.message.F48"/>
+
+        <field name="transactionCurrencyCode" type="string" maxLength="3" required="true" allowValue="704" index="49"
+               format="n"/>
+        <field name="userDefined" type="string" maxLength="60" required="true" index="60" format="ans"
+               allowValue="00;01;02;03;04;05;06;07;95;96;97;98;99"/>
+        <field name="serviceCode" type="string" maxLength="10" required="true" allowValue="BL_INQ;BL_DEP" index="62"
+               format="ans"/>
+        <field name="transactionReference" type="string" maxLength="16" index="63" format="ans"/>
+        <field name="settlementCode" type="string" maxLength="1" index="66" format="n"/>
+        <field name="paymentCode" type="string" maxLength="2" index="67" format="n"/>
+        <field name="receivingMember" type="string" maxLength="11" index="100" format="an" required="true"/>
+        <field name="senderAcc" type="string" maxLength="19" required="true" index="102" format="an"/>
+        <field name="receiverAcc" type="string" maxLength="19" required="true" index="103" format="an"/>
+        <field name="contentTransfers" type="string" maxLength="210" required="true" index="104" format="ans"/>
+        <field name="accountHolderName" type="string" maxLength="100" index="120" format="ans"/>
+    </class>
+</validateConfig>

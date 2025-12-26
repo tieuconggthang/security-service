@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+
+    <!-- pattern và log path -->
+    <property name="LOG_PATH" value="logs"/>
+    <property name="SPRING_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"/>
+
+    <!-- Appender ghi log riêng cho Spring -->
+    <appender name="SPRING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/spring.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/spring-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>${SPRING_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logger cho toàn bộ spring framework -->
+    <logger name="org.springframework" level="DEBUG" additivity="false">
+        <appender-ref ref="SPRING_FILE"/>
+    </logger>
+
+    <!-- Logger cụ thể hơn để debug lỗi 400 -->
+    <logger name="org.springframework.web" level="DEBUG" additivity="false">
+        <appender-ref ref="SPRING_FILE"/>
+    </logger>
+    <logger name="org.springframework.http.converter" level="DEBUG" additivity="false">
+        <appender-ref ref="SPRING_FILE"/>
+    </logger>
+    <logger name="org.springframework.validation" level="DEBUG" additivity="false">
+        <appender-ref ref="SPRING_FILE"/>
+    </logger>
+
+</included>

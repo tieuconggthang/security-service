@@ -18,6 +18,10 @@ import vn.com.payment.common.rsa.IRSA;
 import vn.com.payment.config.cache.KeyCache;
 import vn.com.payment.obj.message.BodyMsg;
 import vn.com.payment.ultities.Base64Util;
+import vn.napas.security.dto.SignRequest;
+import vn.napas.security.dto.SignResponse;
+import vn.napas.security.dto.VerifyRequest;
+import vn.napas.security.dto.VerifyResponse;
 
 @Service
 @Slf4j
@@ -29,7 +33,7 @@ public class SignatureService {
 	String napasAlias;
 	@Value("${disable.verify.sign:false}")
 	Boolean disableVerifySign;
-	
+
 //	@Autowired
 	private KeyCache keyCache;
 	private IRSA rsaSign;
@@ -51,70 +55,71 @@ public class SignatureService {
 
 //	private final LoggerService loggerService = new LoggerService();
 
-	public boolean isSignatureVerified(BodyMsg bodyMsg) {
-		LoggerService loggerService = new LoggerService();
+	public VerifyResponse isSignatureVerified(VerifyRequest verifyReq) {
+
 		long start = System.currentTimeMillis();
+		VerifyResponse verifyResponse = new VerifyResponse(true, "init");
 		try {
-			loggerService.setBodyMsg(bodyMsg);
 			if (disableVerifySign == true)
-				return true;
-		
+				return verifyResponse;
 			if (rsaSign == null)
 				rsaSign = IRSA.init(keyCache.getKey_store_mode());
-			RSAKey rsaKey = keyCache.get(bodyMsg.getPayload().getSendingMember());
+			RSAKey rsaKey = keyCache.get(verifyReq.getAliasName());
 			rsaSign.setKey(rsaKey);
 //			rsaSign = IRSA.init(keyCache.getKey_store_mode());
-			byte[] data = mapper.writeValueAsBytes(bodyMsg.getPayload());
-			byte[] signature = Base64.getDecoder().decode(bodyMsg.getHeader().getSignature());
-			loggerService.stringInfo("data to verify:", new String(data));
+			byte[] data = mapper.writeValueAsBytes(verifyReq.getPayloadB64());
+			byte[] signature = Base64.getDecoder().decode(verifyReq.getSignatureB64());
 			if (rsaSign.verify(data, signature)) {
-				loggerService.stringInfo("validate signature -> OK");
-				return true;
+				verifyResponse.setValid(true);
+				verifyResponse.setReason("Veriry ok");
+				return verifyResponse;
+//				return true;
 			} else {
 				if (disableVerifySign == true) {
-					loggerService.stringInfo("disableVerifySign -> true");
-					return true;
+					verifyResponse.setValid(true);
+					verifyResponse.setReason("disableVerifySign = true");
+					return verifyResponse;
 				}
-				loggerService.stringInfo("validate signature -> Fail");
-				return false;
+				verifyResponse.setReason("verify false");
+				verifyResponse.setValid(false);
+				return verifyResponse;
 			}
 
 		} catch (Exception e) {
-			loggerService.objectError("validate signature -> Exception: ", e);
-			if (disableVerifySign)
-				return true;
-			return false;
-		}
-		finally {
-			 long end = System.currentTimeMillis();
-			 loggerService.stringInfo("isSignatureVerified {} ms", end - start);
+
+			if (disableVerifySign) {
+				verifyResponse.setValid(true);
+				verifyResponse.setReason("disableVerifySign = true");
+				return verifyResponse;
+			}
+			verifyResponse.setValid(false);
+			verifyResponse.setReason("disableVerifySign = true");
+			return verifyResponse;
+		} finally {
+			long end = System.currentTimeMillis();
+
 		}
 	}
 
-	public void createSignature(BodyMsg responseBodyMsg) {
-		LoggerService loggerService = new LoggerService();
+	public SignResponse createSignature(SignRequest signRequest) {
+
 		long start = System.currentTimeMillis();
+		SignResponse response = new SignResponse(signRequest.getPayloadB64(), "");
 		try {
-//			if ()
-			loggerService.setBodyMsg(responseBodyMsg);
-			if (disableVerifySign == true)
-				return;
 			if (rsaSign == null)
 				rsaSign = IRSA.init(keyCache.getKey_store_mode());
 			RSAKey rsaKey = keyCache.get(napasAlias);
-			
 			rsaSign.setKey(rsaKey);
-
-			byte[] data = mapper.writeValueAsBytes(responseBodyMsg.getPayload());
+			byte[] data = mapper.writeValueAsBytes(signRequest.getPayloadB64());
 			byte[] sign = rsaSign.sign(data);
-			responseBodyMsg.getHeader().setSignature(Base64Util.base64Encode(sign));
-			loggerService.stringInfo("create signature -> OK");
+			response.setSignatureB64(Base64Util.base64Encode(sign));
+//			return Base64Util.base64Encode(sign);
+			return response;
 		} catch (Exception e) {
-			loggerService.objectError("create signature -> Fail: ", e);
-		}
-		finally {
-			 long end = System.currentTimeMillis();
-			 loggerService.stringInfo("createSignature {} ms", end - start);
+			return null;
+		} finally {
+			long end = System.currentTimeMillis();
+
 		}
 	}
 }

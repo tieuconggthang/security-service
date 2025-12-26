@@ -1,0 +1,71 @@
+<included>
+	<!-- Console Appender (hiển thị log trên console) -->
+	<appender name="CONSOLE"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- ===== Appender cho INFO ===== -->
+	<appender name="INFO_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/info.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/info-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- ===== Appender cho INFO ===== -->
+	<!-- <appender name="INFO_FILE_MORNITOR" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
+		<file>${LOG_PATH}/info.log</file> <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> 
+		<fileNamePattern>${LOG_PATH}/info-%d{yyyy-MM-dd}.log </fileNamePattern> <maxHistory>30</maxHistory> 
+		</rollingPolicy> <filter class="ch.qos.logback.classic.filter.LevelFilter"> 
+		<level>INFO</level> <onMatch>ACCEPT</onMatch> <onMismatch>DENY</onMismatch> 
+		</filter> <encoder> <pattern>${LOG_PATTERN}</pattern> </encoder> </appender> -->
+
+
+	<!-- ===== Appender cho ERROR ===== -->
+	<appender name="ERROR_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/error.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/error-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- <logger name="com.mycorp.billing" level="INFO" additivity="true"> <appender-ref 
+		ref="INFO_FILE_MORNITOR" /> </logger> -->
+
+
+	<!-- Log mặc định -->
+	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="INFO_FILE" />
+		<appender-ref ref="ERROR_FILE" />
+		<appender-ref ref="CUSTOM_ERROR_APPENDER" />
+	</root>
+
+</included>

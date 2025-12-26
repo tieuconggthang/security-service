@@ -1,0 +1,6 @@
+<configuration scan="true">
+	<include file="./config/logback-properties.xml" />
+	<include file="./config/logback-custom.xml" />
+	<include file="./config/logback-spring-log.xml" />
+	<include file="./config/logback-spring-full.xml" />
+</configuration>

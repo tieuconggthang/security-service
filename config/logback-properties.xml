@@ -1,0 +1,15 @@
+<included>
+  	<!-- Inject từ application.properties -->
+	<springProperty scope="context" name="service_name"
+		source="app.service_name" />
+	<springProperty scope="context" name="server_name"
+		source="app.application_name" />
+	<springProperty scope="context" name="version"
+		source="app.version" />
+	<!-- Định dạng log -->
+	<property name="LOG_PATTERN"
+		value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" />
+
+	<!-- Thư mục lưu log -->
+	<property name="LOG_PATH" value="./logs" />
+</included>

@@ -6,8 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class SignResponse {
-    private String kid;
-    private String alg;
+	private String payloadB64;
     private String signatureB64;
-    private String signedAt;
 }

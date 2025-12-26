@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+
+    <property name="LOG_PATH" value="logs"/>
+    <property name="PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{traceId}] %logger{36} - %msg%n"/>
+
+    <!-- Appender log HTTP 5xx -->
+    <appender name="HTTP_5XX" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/http-5xx.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/http-5xx-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Appender log lỗi chi tiết -->
+    <appender name="ERROR_DETAIL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/error-detail.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/error-detail-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logger dành cho Filter và ExceptionHandler -->
+    <logger name="http-5xx" level="ERROR" additivity="false">
+        <appender-ref ref="HTTP_5XX"/>
+    </logger>
+
+    <logger name="error-detail" level="ERROR" additivity="false">
+        <appender-ref ref="ERROR_DETAIL"/>
+    </logger>
+
+</included>

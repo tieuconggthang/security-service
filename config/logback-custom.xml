@@ -1,0 +1,45 @@
+<included>
+	<appender name="CUSTOM_JSON"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>./logs/custom-error.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>./logs/custom-error.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<maxFileSize>10MB</maxFileSize>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="CUSTOM_ERROR_APPENDER"
+		class="vn.com.payment.log.logger.CustomErrorAppender">
+		<appender-ref ref="CUSTOM_JSON" />
+	</appender>
+
+	<!-- ===== Appender cho MONITOR ===== -->
+	<appender name="INFO_FILE_MONITOR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/monitor.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/monitor-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="vn.com.payment.log.mornitor.MonitorLog" level="INFO" additivity="false">
+		<appender-ref ref="INFO_FILE_MONITOR" />
+	</logger>
+</included>
